@@ -1,8 +1,8 @@
 # Base image
-FROM nvidia/cudagl:9.2-devel-ubuntu18.04
+FROM nvidia/cudagl:10.2-devel-ubuntu18.04
 
 # Install cudnn
-ENV CUDNN_VERSION 7.6.4.38
+ENV CUDNN_VERSION 7.6.5.32
 LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
 
 # Setup basic packages
@@ -23,8 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     zip \
     unzip \
-    libcudnn7=$CUDNN_VERSION-1+cuda9.2 \
-    libcudnn7-dev=$CUDNN_VERSION-1+cuda9.2 \
+    libcudnn7=$CUDNN_VERSION-1+cuda10.2 \
+    libcudnn7-dev=$CUDNN_VERSION-1+cuda10.2 \
     && \
     apt-mark hold libcudnn7 &&\
     rm -rf /var/lib/apt/lists/*
@@ -72,7 +72,7 @@ RUN /bin/bash -c ". activate jax; conda install -c conda-forge ipywidgets"
 
 # Build Jax
 # install jaxlib
-RUN /bin/bash -c ". activate jax; pip install --upgrade https://storage.googleapis.com/jax-releases/cuda92/jaxlib-0.1.47-cp37-none-linux_x86_64.whl; pip install --upgrade jax  # install jax"
+RUN /bin/bash -c ". activate jax; pip install --upgrade https://storage.googleapis.com/jax-releases/cuda102/jaxlib-0.1.47-cp37-none-linux_x86_64.whl; pip install --upgrade jax  # install jax"
 
 # Install tensorflow and tensorflow_datasets
 RUN /bin/bash -c ". activate jax; pip install tensorflow tensorflow_datasets"
